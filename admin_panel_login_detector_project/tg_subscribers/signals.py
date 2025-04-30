@@ -8,7 +8,6 @@ from .services import bot
 
 @receiver(user_logged_in)
 def send_login_notification(sender, request, user, **kwargs):
-    print(33333)
     if request.path.startswith('/admin/'):
         # Формируем сообщение
         login_time = timezone.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -18,6 +17,6 @@ def send_login_notification(sender, request, user, **kwargs):
         subscribers = TelegramSubscriber.objects.all()
         for subscriber in subscribers:
             try:
-                bot.send_message(subscriber.chat_id, message)
-            except Exception as e:
+                bot.send_message(chat_id=subscriber.chat_id, text=message)
+            except TelegramSubscriber.DoesNotExist :
                 print(f"Failed to send message to {subscriber.chat_id}: {e}")
