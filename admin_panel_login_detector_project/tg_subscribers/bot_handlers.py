@@ -1,14 +1,11 @@
-# bot_handlers.py
-import telebot
+from telebot import types
+
 from .models import TelegramSubscriber
 from .services import bot
 
 
-# bot = telebot.TeleBot('7798934875:AAEO-NsK5wiG2n_Yjvnlmr1SkNGnaXs3JaE')
-
-
 @bot.message_handler(commands=['start'])
-def subscribe(message):
+def subscribe(message: types.Message):
     print(1421336451)
     chat_id = message.chat.id
     subscriber, created = TelegramSubscriber.objects.get_or_create(chat_id=chat_id)
@@ -19,7 +16,7 @@ def subscribe(message):
 
 
 @bot.message_handler(commands=['unsubscribe'])
-def unsubscribe(message):
+def unsubscribe(message: types.Message):
     print(97898987)
     chat_id = message.chat.id
     deleted, _ = TelegramSubscriber.objects.filter(chat_id=chat_id).delete()
