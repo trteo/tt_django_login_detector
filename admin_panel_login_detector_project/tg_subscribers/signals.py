@@ -1,6 +1,7 @@
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
 from django.utils import timezone
+from loguru import logger
 
 from .models import TelegramSubscriber
 from .services import bot
@@ -15,6 +16,9 @@ def send_login_notification(sender, request, user, **kwargs):
 
         # Отправляем сообщение всем подписчикам
         subscribers = TelegramSubscriber.objects.all()
+
+        if not subscribers:
+            logger.warning('Не найдено подписанных пользователей')
         for subscriber in subscribers:
             try:
                 bot.send_message(chat_id=subscriber.chat_id, text=message)

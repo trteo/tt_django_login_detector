@@ -1,8 +1,8 @@
 import os
-import sys
 import threading
 
 from django.apps import AppConfig
+from loguru import logger
 
 
 class TgSubscribersConfig(AppConfig):
@@ -25,9 +25,9 @@ class TgSubscribersConfig(AppConfig):
 
     @staticmethod
     def run_bot():
-        print("Starting Telegram bot...")
+        logger.info("Запускаю Telegram бота")
         try:
             from tg_subscribers.services import bot
             bot.infinity_polling()
         except Exception as e:
-            print(f"Bot error: {e}")
+            logger.error(f"При запуске бота произошла ошибка: {e}")
