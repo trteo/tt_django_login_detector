@@ -5,7 +5,7 @@ from .models import TelegramSubscriber
 from .services import bot
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['subscribe'])
 def subscribe(message: types.Message):
     chat_id = message.chat.id
     logger.info(f'Подписался пользователь: {chat_id}')

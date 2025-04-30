@@ -3,6 +3,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.test import RequestFactory
 from tg_subscribers.models import TelegramSubscriber
+from tg_subscribers.tests.mocks import CHAT_DEFAULT_ID
 
 
 @pytest.fixture
@@ -22,11 +23,5 @@ def admin_request(request_factory):
 
 
 @pytest.fixture
-def non_admin_request(request_factory):
-    request = request_factory.get('/some/other/path/')
-    return request
-
-
-@pytest.fixture
 def telegram_subscriber():
-    return TelegramSubscriber.objects.create(chat_id=12345)
+    return TelegramSubscriber.objects.create(chat_id=CHAT_DEFAULT_ID)

@@ -22,5 +22,5 @@ def send_login_notification(sender, request, user, **kwargs):
         for subscriber in subscribers:
             try:
                 bot.send_message(chat_id=subscriber.chat_id, text=message)
-            except TelegramSubscriber.DoesNotExist :
-                print(f"Failed to send message to {subscriber.chat_id}: {e}")
+            except Exception as e:
+                logger.error(f"Failed to send message to {subscriber.chat_id}: {e}")

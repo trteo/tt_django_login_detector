@@ -1,8 +1,9 @@
+from unittest.mock import patch
+
 import pytest
-from unittest.mock import patch, MagicMock
 from django.contrib.auth.models import User
+
 from tg_subscribers.signals import send_login_notification
-from tg_subscribers.models import TelegramSubscriber
 
 
 @pytest.mark.django_db
